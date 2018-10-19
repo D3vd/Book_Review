@@ -4,7 +4,9 @@ This is my solution for **CS50's Web Programming with Python and JavaScript** --
 
 https://docs.cs50.net/web/2018/x/projects/1/project1.html
 
+## Resources Used
 
+- [PostgreSQL Pycharm Connection](https://www.jetbrains.com/help/pycharm/connecting-to-a-database.html)
 
 ## Requirements
 
