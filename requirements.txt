@@ -1,2 +1,4 @@
-flask
-sqlalchemy
+Flask
+Flask-Session
+psycopg2
+SQLAlchemy
