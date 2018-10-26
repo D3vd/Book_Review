@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, session, redirect
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
@@ -11,4 +11,9 @@ db = scoped_session(sessionmaker(bind=engine))
 
 @app.route('/')
 def index():
-    return 'Hello World'
+    # Main Page for the Web Site
+
+    # If user is not logged in then redirect to login page
+    if session.get('user_id') is None:
+        return redirect('/login')
+
