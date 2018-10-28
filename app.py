@@ -11,9 +11,13 @@ db = scoped_session(sessionmaker(bind=engine))
 
 @app.route('/')
 def index():
-    # Main Page for the Web Site
 
-    # If user is not logged in then redirect to login page
-    if session.get('user_id') is None:
+    if session.get('username') is None:
         return redirect('/login')
+
+
+@app.route('/login')
+def login():
+
+    return render_template('login.html')
 

@@ -1,0 +1,19 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    Login
+{% endblock %}
+
+{% block body %}
+    <div class="login-form">
+        <form method="post" action="{{ url_for('index') }}" class="form-horizontal">
+        <div class="form-group">
+            <input class="form-control" type="text" placeholder="Username" name="username">
+        </div>
+        <div class="form-group">
+            <input class="form-control" type="password" placeholder="Password" name="password">
+        </div>
+            <input class="btn btn-primary" type="submit">
+        </form>
+    </div>
+{% endblock %}
