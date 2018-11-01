@@ -1,0 +1,26 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+Result
+{% endblock %}
+
+{% block body %}
+<table class="table">
+    <tr>
+        <th scope="col">ISBN</th>
+        <th scope="col">Title</th>
+        <th scope="col">Author</th>
+        <th scope="col">Year</th>
+    </tr>
+    {% for book in books %}
+        <tr>
+            <td scope="row">{{ book.isbn }}</td>
+            <td scope="row">{{ book.title }}</td>
+            <td scope="row">{{ book.author }}</td>
+            <td scope="row">{{ book.year }}</td>
+        </tr>
+    {% endfor %}
+</table>
+
+    <a href="{{ url_for('index') }}" class="btn btn-primary"><- Go Back</a>
+{% endblock %}

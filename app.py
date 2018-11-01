@@ -10,7 +10,8 @@ app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 
 engine = create_engine(
-    'postgres://usetpxuboatswg:14291d4b50681090072617602611ea12822484a1e39cde28e9f046fc7ff50a85@ec2-54-235-86-226.compute-1.amazonaws.com:5432/d5mk3psi9hs4nb')
+    'postgres://usetpxuboatswg:14291d4b50681090072617602611ea12822484a1e39cde28e9f046fc7ff50a85@ec2-54-235-86-226.'
+    'compute-1.amazonaws.com:5432/d5mk3psi9hs4nb')
 db = scoped_session(sessionmaker(bind=engine))
 
 
@@ -27,15 +28,13 @@ def index():
     else:
 
         query = request.form.get('query')
+        query_like = '%' + query + '%'
 
-        books = db.execute('SELECT * FROM books WHERE title=:title',
-                           {'title': query}).fetchall()
+        books = db.execute('SELECT * FROM books WHERE (LOWER(isbn) LIKE :query) OR (LOWER(title) LIKE :query) '
+                           'OR (LOWER(author) LIKE :query)',
+                           {'query': query_like}).fetchall()
 
-        for book in books:
-            print(book)
-            print(book.title)
-
-        return render_template('index.html')
+        return render_template('result.html', books=books)
 
 
 @app.route('/login', methods=['GET', 'POST'])
