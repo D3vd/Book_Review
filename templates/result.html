@@ -5,6 +5,7 @@ Result
 {% endblock %}
 
 {% block body %}
+    <h2>Results for '{{ query }}' :</h2>
 <table class="table">
     <tr>
         <th scope="col">ISBN</th>
@@ -22,5 +23,5 @@ Result
     {% endfor %}
 </table>
 
-    <a href="{{ url_for('index') }}" class="btn btn-primary"><- Go Back</a>
+    <a href="{{ url_for('index') }}" class="btn btn-primary"><- Go Home</a>
 {% endblock %}

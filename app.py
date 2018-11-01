@@ -27,14 +27,17 @@ def index():
 
     else:
 
-        query = request.form.get('query')
+        query = request.form.get('query').lower()
         query_like = '%' + query + '%'
 
         books = db.execute('SELECT * FROM books WHERE (LOWER(isbn) LIKE :query) OR (LOWER(title) LIKE :query) '
                            'OR (LOWER(author) LIKE :query)',
                            {'query': query_like}).fetchall()
 
-        return render_template('result.html', books=books)
+        if not books:
+            return render_template('error.html', message='No Books were Found!')
+
+        return render_template('result.html', query=query, books=books)
 
 
 @app.route('/login', methods=['GET', 'POST'])

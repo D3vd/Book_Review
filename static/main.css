@@ -7,5 +7,11 @@
     margin-right: auto;
     width: 40%;
     color: azure;
-    padding-top: 50px;
+    margin-top: 50px;
+}
+
+.search-bar{
+    width: 40%;
+    height: 100px;
+    border: 1px solid black;
 }
