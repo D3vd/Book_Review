@@ -14,13 +14,28 @@ engine = create_engine(
 db = scoped_session(sessionmaker(bind=engine))
 
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def index():
 
     if session.get('username') is None:
         return redirect('/login')
 
-    return render_template('index.html')
+    if request.method == 'GET':
+
+        return render_template('index.html')
+
+    else:
+
+        query = request.form.get('query')
+
+        books = db.execute('SELECT * FROM books WHERE title=:title',
+                           {'title': query}).fetchall()
+
+        for book in books:
+            print(book)
+            print(book.title)
+
+        return render_template('index.html')
 
 
 @app.route('/login', methods=['GET', 'POST'])

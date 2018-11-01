@@ -6,6 +6,9 @@
 
 {% block body %}
 
-INDEX
+    <form action="/" method="post">
+        <input type="text" placeholder="title, author, isbn" name="query" class="form-control" autocomplete="off" required>
+        <input type="submit" class="btn btn-primary">
+    </form>
 
 {% endblock %}
