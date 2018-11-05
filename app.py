@@ -104,7 +104,7 @@ def signup():
 
         session['username'] = username
 
-        redirect('/')
+        return redirect('/')
 
     else:
         return render_template('signup.html')
