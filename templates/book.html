@@ -6,6 +6,10 @@ Book
 
 {% block body %}
     <h1>{{ book.title }} ({{ book.year }})</h1>
+
+    {% if link %}
+        <div>{{ description }}</div>
+
     <div id="goodreads-widget">
       <div id="gr_header"><h1><a rel="nofollow" href="{{ link }}">{{ book.title }} Reviews</a></h1></div>
       <iframe id="the_iframe" src="https://www.goodreads.com/api/reviews_widget_iframe?did=DEVELOPER_ID&amp;format=html&amp;isbn={{ book.isbn }}&amp;links=660&amp;min_rating=&amp;review_back=fff&amp;stars=000&amp;text=000" width="565" height="400" frameborder="0"></iframe>
@@ -13,4 +17,7 @@ Book
         <a class="gr_branding" target="_blank" rel="nofollow" href="{{ link }}?utm_medium=api&amp;utm_source=reviews_widget">Reviews from Goodreads.com</a>
       </div>
     </div>
+    {% else %}
+    <h3>No Info on book is Available</h3>
+    {% endif %}
 {% endblock %}
