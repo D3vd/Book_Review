@@ -15,7 +15,7 @@ Result
     </tr>
     {% for book in books %}
         <tr>
-            <td scope="row">{{ book.isbn }}</td>
+            <td scope="row"><a href="/books/{{ book.isbn }}">{{ book.isbn }}</a></td>
             <td scope="row">{{ book.title }}</td>
             <td scope="row">{{ book.author }}</td>
             <td scope="row">{{ book.year }}</td>

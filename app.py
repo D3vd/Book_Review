@@ -3,6 +3,10 @@ from flask import Flask, render_template, request, session, redirect
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 
+import requests
+from xml.etree import ElementTree
+import webbrowser
+
 app = Flask(__name__)
 
 app.secret_key = 'key'
@@ -108,3 +112,24 @@ def signup():
 
     else:
         return render_template('signup.html')
+
+
+@app.route('/books/<isbn>')
+def book(isbn):
+
+    book = db.execute('SELECT * FROM books WHERE isbn=:isbn',
+                      {'isbn': isbn}).fetchone()
+    url = "https://www.goodreads.com/book/isbn/{}?key=JKfZcTyK1lzaCpB58Tpr8g".format(isbn)
+    res = requests.get(url)
+    tree = ElementTree.fromstring(res.content)
+
+    webbrowser.open_new_tab(url)
+
+    description = tree[1][16].text.replace('<br />', '')
+    image_url = tree[1][8].text
+    iframe = tree[1][27].text
+    review_count = tree[1][17][3].text
+    avg_score = tree[1][18].text
+    link = tree[1][24].text
+
+    return render_template('book.html', book=book, link=link)
