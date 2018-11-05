@@ -11,10 +11,10 @@ https://docs.cs50.net/web/2018/x/projects/1/project1.html
 ## Requirements
 
 - [ ] **Registration**
-- [ ] **Login**
-- [ ] **Logout**
-- [ ] **Import**
-- [ ] **Search**
+- [x] **Login**
+- [x] **Logout**
+- [x] **Import**
+- [x] **Search**
 - [ ] **Book Page**
 - [ ] **Review Submission**
 - [ ] **Goodreads Review Data**

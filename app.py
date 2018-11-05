@@ -72,3 +72,39 @@ def logout():
     return redirect('/')
 
 
+@app.route('/signup', methods=['GET', 'POST'])
+def signup():
+
+    session.clear()
+
+    if request.method == 'POST':
+
+        username = request.form.get('username')
+        password = request.form.get('password')
+        retype_password = request.form.get('retype_password')
+
+        # check if passwords are the same
+
+        if not password == retype_password:
+            return render_template('error.html', message='Passwords do not match')
+
+        # check if user is available
+
+        avail = db.execute('SELECT username FROM users WHERE username=:username',
+                           {'username': username}).fetchone()
+
+        if avail:
+            return render_template('error.html', message='Username Already Exists')
+
+        # Write username and password to database
+
+        db.execute('INSERT INTO users(username, password) VALUES(:username, :password)',
+                   {'username': username, 'password': password})
+        db.commit()
+
+        session['username'] = username
+
+        redirect('/')
+
+    else:
+        return render_template('signup.html')
