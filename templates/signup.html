@@ -1,12 +1,12 @@
 {% extends 'layout.html' %}
 
 {% block title %}
-    Login
+    Sign-Up
 {% endblock %}
 
 {% block body %}
     <div class="login-form">
-        <form method="post" action="{{ url_for('login') }}" class="form-horizontal">
+        <form method="post" action="{{ url_for('signup') }}" class="form-horizontal">
         <div class="form-group">
             <input class="form-control" type="text" placeholder="Username" name="username" required>
         </div>
@@ -14,8 +14,6 @@
             <input class="form-control" type="password" placeholder="Password" name="password" required>
         </div>
             <input class="btn btn-primary" type="submit">
-
-            <a href="{{ url_for('signup') }}" class="btn btn-danger" style="float: right;">Sign-Up</a>
         </form>
     </div>
 {% endblock %}

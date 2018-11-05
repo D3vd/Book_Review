@@ -19,10 +19,15 @@ if __name__ == '__main__':
     limit = int(input('Limit: '))
     count = 0
 
+    done_list = db.execute('SELECT isbn FROM books').fetchall()
+
     for isbn, title, author, year in reader:
 
         if count == limit:
             break
+
+        if isbn in done_list:
+            continue
 
         try:
             isbn = int(isbn)
