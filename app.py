@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, session, redirect, Markup
+from flask import Flask, render_template, request, session, redirect, Markup, jsonify
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
@@ -136,3 +136,48 @@ def book(isbn):
 
     return render_template('book.html', book=book, link=link, description=description_markup,
                            image_url=image_url, review_count=review_count, avg_score=avg_score)
+
+
+@app.route('/api/<isbn>')
+def book_api(isbn):
+    book = db.execute('SELECT * FROM books WHERE isbn=:isbn',
+                      {'isbn': isbn}).fetchone()
+    url = "https://www.goodreads.com/book/isbn/{}?key=JKfZcTyK1lzaCpB58Tpr8g".format(isbn)
+    res = requests.get(url)
+    tree = ElementTree.fromstring(res.content)
+
+    try:
+        description = tree[1][16].text
+        image_url = tree[1][8].text
+        review_count = tree[1][17][3].text
+        avg_score = tree[1][18].text
+        link = tree[1][24].text
+
+    except IndexError:
+        api = jsonify({
+            'title': book.title,
+            'author': book.author,
+            'year': book.author,
+            'isbn': book.isbn,
+            'link': '',
+            'description': '',
+            'book_cover': '',
+            'review_count': '',
+            'average_rating': ''
+        })
+
+        return api
+
+    api = jsonify({
+        'title': book.title,
+        'author': book.author,
+        'year': book.author,
+        'isbn': book.isbn,
+        'link': link,
+        'description': description,
+        'book_cover': image_url,
+        'review_count': review_count,
+        'average_rating': avg_score
+    })
+
+    return api

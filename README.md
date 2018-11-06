@@ -10,13 +10,13 @@ https://docs.cs50.net/web/2018/x/projects/1/project1.html
 
 ## Requirements
 
-- [ ] **Registration**
+- [x] **Registration**
 - [x] **Login**
 - [x] **Logout**
 - [x] **Import**
 - [x] **Search**
-- [ ] **Book Page**
+- [x] **Book Page**
 - [ ] **Review Submission**
-- [ ] **Goodreads Review Data**
+- [x] **Goodreads Review Data**
 - [ ] **API Access**
 
