@@ -7,6 +7,8 @@
     <link rel= "stylesheet" type= "text/css" href= "/static/main.css">
     <link rel= "stylesheet" type= "text/css" href= "/static/goodreads.css">
 
+    <link rel="icon" href="/static/img/logo_icon.png">
+
     <script>
     function goBack() {
         window.history.back();
@@ -14,6 +16,22 @@
     </script>
 </head>
 <body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+          <div class="container-fluid">
+            <div class="navbar-header">
+              <a class="navbar-brand" href="{{ url_for('index') }}">
+                  <img src="/static/img/logo.png" width="50px" height="100px" alt="">
+              </a>
+            </div>
+            <ul class="nav navbar-nav">
+              <li class="active"><a href="{{ url_for('index') }}">Home</a></li>
+              <li><a href="{{ url_for('review') }}">Write A Review</a></li>
+            </ul>
+              <ul class="nav navbar-nav navbar-right">
+                  <li><a href="{{ url_for('logout') }}">Sign-Out</a></li>
+              </ul>
+          </div>
+    </nav>
     {% block body %}
 
     {% endblock %}
