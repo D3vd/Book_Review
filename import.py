@@ -19,7 +19,8 @@ if __name__ == '__main__':
     limit = int(input('Limit: '))
     count = 0
 
-    done_list = db.execute('SELECT isbn FROM books').fetchall()
+    done_tuple = db.execute('SELECT isbn FROM books').fetchall()
+    done_list = [book.isbn for book in done_tuple]
 
     for isbn, title, author, year in reader:
 
@@ -29,10 +30,6 @@ if __name__ == '__main__':
         if isbn in done_list:
             continue
 
-        try:
-            isbn = int(isbn)
-        except Exception as e:
-            continue
 
         try:
             db.execute('INSERT INTO books(isbn, title, author, year) VALUES(:isbn, :title, :author, :year)',
@@ -52,4 +49,3 @@ if __name__ == '__main__':
 
     db.commit()
     print('Successfully Added {}'.format(count))
-
