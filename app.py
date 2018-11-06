@@ -26,7 +26,7 @@ def index():
 
     if request.method == 'GET':
 
-        return render_template('index.html')
+        return render_template('index.html', navbar=True)
 
     else:
 
@@ -38,9 +38,9 @@ def index():
                            {'query': query_like}).fetchall()
 
         if not books:
-            return render_template('error.html', message='No Books were Found!')
+            return render_template('error.html', message='No Books were Found!', navbar=True)
 
-        return render_template('result.html', query=query, books=books)
+        return render_template('result.html', query=query, books=books, navbar=True)
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -53,10 +53,10 @@ def login():
         username = request.form.get('username')
         password = request.form.get('password')
 
-        user_id = db.execute('SELECT id FROM users WHERE (username=:username AND password=:password)',
-                             {'username': username, 'password': password}).fetchall()
+        user = db.execute('SELECT * FROM users WHERE (username=:username AND password=:password)',
+                             {'username': username, 'password': password}).fetchone()
 
-        if user_id is None:
+        if user is None:
             return render_template('error.html', message='Entered credentials not valid!')
 
         session["username"] = username
@@ -64,7 +64,7 @@ def login():
         return redirect('/')
 
     else:
-        return render_template('login.html')
+        return render_template('login.html', navbar=False)
 
 
 @app.route('/logout')
@@ -110,7 +110,7 @@ def signup():
         return redirect('/')
 
     else:
-        return render_template('signup.html')
+        return render_template('signup.html', navbar=False)
 
 
 @app.route('/books/<isbn>')
@@ -120,7 +120,7 @@ def book(isbn):
                       {'isbn': isbn}).fetchone()
 
     if book is None:
-        return render_template('error.html', message='This book is not available')
+        return render_template('error.html', message='This book is not available', navbar=True)
 
     url = "https://www.goodreads.com/book/isbn/{}?key=JKfZcTyK1lzaCpB58Tpr8g".format(isbn)
     res = requests.get(url)
@@ -134,12 +134,12 @@ def book(isbn):
         link = tree[1][24].text
 
     except IndexError:
-        return render_template('book.html', book=book, link=None)
+        return render_template('book.html', book=book, link=None, navbar=True)
 
     description_markup = Markup(description)
 
     return render_template('book.html', book=book, link=link, description=description_markup,
-                           image_url=image_url, review_count=review_count, avg_score=avg_score)
+                           image_url=image_url, review_count=review_count, avg_score=avg_score, navbar=True)
 
 
 @app.route('/api/<isbn>')
@@ -207,13 +207,13 @@ def review():
                           {'isbn': isbn}).fetchone()
 
         if book is None:
-            return render_template('error.html', message='Book ISBN Invalid')
+            return render_template('error.html', message='Book ISBN Invalid', navbar=True)
 
         db.execute('INSERT INTO reviews(title, isbn, review, user_name) VALUES(:title, :isbn, :review, :username)',
                    {'title': book.title, 'isbn': isbn, 'review': review, 'username': username})
         db.commit()
 
-        return render_template('success.html', message='Review Successfully Submitted')
+        return render_template('success.html', message='Review Successfully Submitted', navbar=True)
 
     else:
-        return render_template('review.html')
+        return render_template('review.html', navbar=True)

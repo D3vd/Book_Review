@@ -5,17 +5,21 @@
 {% endblock %}
 
 {% block body %}
-    <div class="login-form">
-        <form method="post" action="{{ url_for('login') }}" class="form-horizontal">
-        <div class="form-group">
-            <input class="form-control" type="text" placeholder="Username" name="username" required>
-        </div>
-        <div class="form-group">
-            <input class="form-control" type="password" placeholder="Password" name="password" required>
-        </div>
-            <input class="btn btn-primary" type="submit">
+    <div class="container" style="height: 200px; width: 40%; margin-top: 120px;">
+    <h2>Login</h2>
+        <br>
+    <form action="{{ url_for('login') }}" method="post">
+  <div class="form-group">
+    <label>Username</label>
+    <input type="text" class="form-control"  placeholder="Enter Username" name="username" required>
+  </div>
+  <div class="form-group">
+    <label >Password</label>
+    <input type="password" class="form-control" placeholder="Password" name="password" required>
+  </div>
 
-            <a href="{{ url_for('signup') }}" class="btn btn-danger" style="float: right;">Sign-Up</a>
-        </form>
+  <button type="submit" class="btn">Submit</button>
+</form>
+
     </div>
 {% endblock %}

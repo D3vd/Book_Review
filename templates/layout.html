@@ -9,6 +9,8 @@
 
     <link rel="icon" href="/static/img/logo_icon.png">
 
+    {% block style %} {% endblock %}
+
     <script>
     function goBack() {
         window.history.back();
@@ -16,6 +18,7 @@
     </script>
 </head>
 <body>
+{% if navbar %}
     <nav class="navbar navbar-inverse navbar-fixed-top">
           <div class="container-fluid">
             <div class="navbar-header">
@@ -32,6 +35,21 @@
               </ul>
           </div>
     </nav>
+    {% else %}
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+          <div class="container-fluid">
+            <div class="navbar-header">
+              <a class="navbar-brand" href="{{ url_for('index') }}">
+                  <img src="/static/img/logo.png" width="50px" height="100px" alt="">
+              </a>
+            </div>
+              <ul class="nav navbar-nav navbar-right">
+                  <li><a href="{{ url_for('login') }}">Login</a></li>
+                  <li><a href="{{ url_for('signup') }}">Sign-Up</a></li>
+              </ul>
+          </div>
+    </nav>
+{% endif %}
     {% block body %}
 
     {% endblock %}
