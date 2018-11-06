@@ -118,6 +118,10 @@ def book(isbn):
 
     book = db.execute('SELECT * FROM books WHERE isbn=:isbn',
                       {'isbn': isbn}).fetchone()
+
+    if book is None:
+        return render_template('error.html', message='This book is not available')
+
     url = "https://www.goodreads.com/book/isbn/{}?key=JKfZcTyK1lzaCpB58Tpr8g".format(isbn)
     res = requests.get(url)
     tree = ElementTree.fromstring(res.content)
@@ -140,8 +144,14 @@ def book(isbn):
 
 @app.route('/api/<isbn>')
 def book_api(isbn):
+
     book = db.execute('SELECT * FROM books WHERE isbn=:isbn',
                       {'isbn': isbn}).fetchone()
+
+    if book is None:
+        api = jsonify({'error': 'This book is not available'})
+        return api
+
     url = "https://www.goodreads.com/book/isbn/{}?key=JKfZcTyK1lzaCpB58Tpr8g".format(isbn)
     res = requests.get(url)
     tree = ElementTree.fromstring(res.content)
@@ -181,3 +191,29 @@ def book_api(isbn):
     })
 
     return api
+
+
+@app.route('/review', methods=['GET', 'POST'])
+def review():
+
+    if request.method == 'POST':
+
+        isbn = request.form.get('isbn')
+        review = request.form.get('review')
+
+        username = session['username']
+
+        book = db.execute('SELECT * FROM books WHERE isbn=:isbn ',
+                          {'isbn': isbn}).fetchone()
+
+        if book is None:
+            return render_template('error.html', message='Book ISBN Invalid')
+
+        db.execute('INSERT INTO reviews(title, isbn, review, user_name) VALUES(:title, :isbn, :review, :username)',
+                   {'title': book.title, 'isbn': isbn, 'review': review, 'username': username})
+        db.commit()
+
+        return render_template('success.html', message='Review Successfully Submitted')
+
+    else:
+        return render_template('review.html')

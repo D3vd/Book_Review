@@ -16,7 +16,7 @@ https://docs.cs50.net/web/2018/x/projects/1/project1.html
 - [x] **Import**
 - [x] **Search**
 - [x] **Book Page**
-- [ ] **Review Submission**
+- [x] **Review Submission**
 - [x] **Goodreads Review Data**
-- [ ] **API Access**
+- [x] **API Access**
 

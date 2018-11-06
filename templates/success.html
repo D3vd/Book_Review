@@ -1,0 +1,14 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    Success
+{% endblock %}
+
+{% block body %}
+    <div class="alert alert-success">
+        <strong>Success!</strong> {{ message }}
+    </div>
+
+    <a href="{{ url_for('index') }}" class="btn btn-primary"><- Go Home</a>
+
+{% endblock %}
