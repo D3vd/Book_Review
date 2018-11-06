@@ -167,7 +167,7 @@ def book_api(isbn):
         api = jsonify({
             'title': book.title,
             'author': book.author,
-            'year': book.author,
+            'year': book.year,
             'isbn': book.isbn,
             'link': '',
             'description': '',
@@ -181,7 +181,7 @@ def book_api(isbn):
     api = jsonify({
         'title': book.title,
         'author': book.author,
-        'year': book.author,
+        'year': book.year,
         'isbn': book.isbn,
         'link': link,
         'description': description,
