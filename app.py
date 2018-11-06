@@ -5,7 +5,6 @@ from sqlalchemy.orm import scoped_session, sessionmaker
 
 import requests
 from xml.etree import ElementTree
-import webbrowser
 
 app = Flask(__name__)
 
@@ -130,7 +129,7 @@ def book(isbn):
         avg_score = tree[1][18].text
         link = tree[1][24].text
 
-    except IndexError as e:
+    except IndexError:
         return render_template('book.html', book=book, link=None)
 
     description_markup = Markup(description)

@@ -30,7 +30,6 @@ if __name__ == '__main__':
         if isbn in done_list:
             continue
 
-
         try:
             db.execute('INSERT INTO books(isbn, title, author, year) VALUES(:isbn, :title, :author, :year)',
                        {'isbn': isbn, 'title': title, 'author': author, 'year': year})
