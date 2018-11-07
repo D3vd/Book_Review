@@ -17,7 +17,7 @@
               <div class="col-sm-4">
                   <div class="row">
                       <div class="col-sm-4">
-                          <img src="{{ image_url }}" alt="Book Cover">
+                          <a href="{{ link }}"><img src="{{ image_url }}" alt="Book Cover"></a>
                       </div>
                       <div class="col-sm">
                           <p><strong>Review Count   :</strong> {{ review_count }}</p>
@@ -40,19 +40,6 @@
                         <a class="gr_branding" target="_blank" rel="nofollow" href="{{ link }}?utm_medium=api&amp;utm_source=reviews_widget">Reviews from Goodreads.com</a>
                       </div>
                 </div>
-{#        <div>{{ description }}</div>#}
-{##}
-{#        <br>#}
-{##}
-{#        <img src="{{ image_url }}" alt="Book Cover">#}
-{##}
-{#        <br>#}
-{##}
-{#        <p>Review Count   : {{ review_count }}</p>#}
-{#        <p>Average Rating : {{ avg_score }}</p>#}
-{##}
-
-{#        </div>#}
     {% else %}
         <h3>No Info on book is Available</h3>
     {% endif %}
